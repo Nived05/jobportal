@@ -1,85 +1,129 @@
-# 💼 Full Stack Job Portal System
+# Job Portal System
 
-A production-ready full-stack job portal application built with Spring Boot and React.
+A full-stack web application that connects recruiters and job seekers.
+Recruiters can post jobs and manage applicants. Job seekers can browse
+jobs, apply, and track their application status.
 
-## 🌐 Live Demo
-- **Frontend:** https://fullstack-job-portal.vercel.app
-- **Backend API:** https://jobportal-backend-b68j.onrender.com
+Built with Spring Boot (backend) and React (frontend), deployed live.
 
-## 🛠️ Tech Stack
+🔗 Live: https://jobportal-frontend-kohl.vercel.app
 
-### Backend
-- Java 17 + Spring Boot 3.2
-- Spring Security + JWT Authentication
-- JPA / Hibernate ORM
-- MySQL (Railway)
-- Cloudinary (Resume Upload)
-- Docker (Deployment)
+---
 
-### Frontend
-- React 18 + Vite
-- React Router v6
-- Axios
-- Context API
+## Screenshots
 
-### Deployment
-- Backend → Render (Docker)
-- Frontend → Vercel
-- Database → Railway MySQL
+**Recruiter Dashboard**
+![Recruiter Dashboard](screenshots/recruiter-dashboard.png)
 
-## ✨ Features
-- JWT-based authentication with role-based access
-- **Recruiter:** Post, edit, delete jobs — view & manage applicants
-- **Job Seeker:** Browse, search, filter jobs — apply with resume upload
-- Pagination and keyword/location search
-- Application status tracking (Pending/Reviewed/Accepted/Rejected)
-- Resume upload via Cloudinary
+**Job Detail & Apply**
+![Job Detail](screenshots/job-detail.png)
 
-## 📁 Project Structure
+**Seeker Dashboard**
+![Seeker Dashboard](screenshots/seeker-dashboard.png)
+
+**Managing Applicants**
+![Recruiter Applicants](screenshots/recruiter-applicants.png)
+
+---
+
+## What it does
+
+**As a Recruiter:**
+- Post job listings with title, location, salary and required skills
+- See who applied for each job
+- Change applicant status to Reviewed, Accepted or Rejected
+
+**As a Job Seeker:**
+- Browse and search jobs by keyword or location
+- Apply for a job and upload your resume
+- Check your application status from the dashboard
+
+---
+
+## Tech used
+
+- Java 17, Spring Boot 3.2
+- Spring Security with JWT authentication
+- Hibernate / JPA with MySQL
+- React 18, React Router, Axios
+- Cloudinary for resume file upload
+- Deployed on Render (backend) and Vercel (frontend)
+- Database hosted on Railway
+
+---
+
+## API Reference
+
+**Auth**
+
+POST /api/auth/register
+POST /api/auth/login
+
+**Jobs**
+GET    /api/jobs               - list all jobs (public)
+GET    /api/jobs/{id}          - job details (public)
+GET    /api/jobs/search        - search by keyword/location
+GET    /api/jobs/my            - recruiter's own jobs
+POST   /api/jobs               - post a job (recruiter)
+PUT    /api/jobs/{id}          - edit a job (recruiter)
+DELETE /api/jobs/{id}          - delete a job (recruiter)
+
+**Applications**
+POST /api/applications              - apply with resume (seeker)
+GET  /api/applications/my           - my applications (seeker)
+GET  /api/applications/job/{jobId}  - applicants for a job (recruiter)
+PUT  /api/applications/{id}/status  - update status (recruiter)
+
+---
+
+## Database
+users        — id, name, email, password, role, created_at
+jobs         — id, title, description, location, salary, skills, posted_by
+applications — id, user_id, job_id, resume_link, status, applied_at
+
+---
+
+## Running locally
+
+**Backend**
+```bash
+git clone https://github.com/Nived05/jobportal.git
+cd jobportal/backend
+cp src/main/resources/application.properties.example \
+   src/main/resources/application.properties
+# fill in your MySQL and Cloudinary details
+./mvnw spring-boot:run
+```
+
+**Frontend**
+```bash
+cd jobportal/frontend
+npm install
+# create .env with VITE_API_URL=http://localhost:8080
+npm run dev
+```
+
+---
+
+## Project structure
+
 jobportal/
-├── backend/          # Spring Boot REST API
-│   ├── src/
-│   │   └── main/java/com/jobportal/backend/
-│   │       ├── controller/
-│   │       ├── service/
-│   │       ├── repository/
-│   │       ├── entity/
-│   │       ├── dto/
-│   │       ├── security/
-│   │       └── exception/
-│   └── Dockerfile
-└── frontend/         # React Application
+├── backend/
+│   └── src/main/java/com/jobportal/backend/
+│       ├── controller/
+│       ├── service/
+│       ├── repository/
+│       ├── entity/
+│       ├── dto/
+│       ├── security/
+│       └── exception/
+└── frontend/
 └── src/
 ├── api/
 ├── components/
 ├── context/
 └── pages/
+---
 
-## 🚀 Local Setup
+Made by Chitturi Nived — github.com/Nived05
 
-### Backend
-1. Clone the repo
-2. Copy `backend/src/main/resources/application.properties.example` → `application.properties`
-3. Fill in your MySQL, JWT and Cloudinary credentials
-4. Run:
-```bash
-cd backend
-./mvnw spring-boot:run
-```
-
-### Frontend
-1. Copy `frontend/.env.example` → `.env`
-2. Set `VITE_API_URL=http://localhost:8080`
-3. Run:
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## 📸 Screenshots
-> Register → Login → Browse Jobs → Apply → Track Status
-
-## 👨‍💻 Author
-**Chitturi Nived**
-- GitHub: [@Nived05](https://github.com/Nived05)
