@@ -4,3 +4,5 @@ backend/target/
 .env
 frontend/.env
 backend/src/main/resources/application.properties
+package.json
+package-lock.json
